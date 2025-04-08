@@ -23,7 +23,7 @@ def add_note_cmd(args: list, notebook: NoteBook) -> str:
     while i < len(args):
         if args[i] == "--tag":
             if i + 1 < len(args):
-                tags.append(args[i + 1].lower()) # Переводимо тег у нижній регістр
+                tags.append(args[i + 1].lower()) 
                 i += 2
             else:
                 return "Missing tag value after --tag"
@@ -32,7 +32,7 @@ def add_note_cmd(args: list, notebook: NoteBook) -> str:
             i += 1
     if not content_parts:
         return "Note content cannot be empty."
-    note = Note(" ".join(content_parts), set(tags)) # Передаємо set() тегів
+    note = Note(" ".join(content_parts), set(tags)) 
     notebook.add_note(note)
     return "Note added."
 
@@ -82,13 +82,13 @@ def search_note_by_tag_cmd(args: list, notebook: NoteBook) -> str:
     tag_lower = tag.lower()
     results = []
     for note_id, note in notebook.data.items():
-        print(f"Нотатка ID: {note_id}, Теги: {note.tags}") 
         if tag_lower in note.tags:
-            results.append(note)
+            results.append(f"{note.content} (Tag: {tag})")
     if results:
-        return f"Notes with tag '{tag}':\n" + "\n".join(map(str, results))
+        return f"Notes with tag '{tag}':\n" + "\n".join(results)
     else:
         return f"No notes found with tag '{tag}'."
+    
 @input_error
 def sort_notes_by_tag_cmd(args: list, notebook: NoteBook) -> str:
     sorted_notes = notebook.sort_by_tag()

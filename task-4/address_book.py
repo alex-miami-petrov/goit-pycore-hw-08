@@ -310,18 +310,18 @@ class NoteBook(UserDict):
     def sort_by_tag(self):
         return sorted(self.data.values(), key=lambda note: sorted(list(note.tags)))
 
-def save_data(book, notes, filename="addressbook.pkl", notes_filename="notebook.pkl"):
+def save_data(address_book, note_book, filename="addressbook.pkl", notes_filename="notebook.pkl"):
     user_dir = os.path.expanduser("~")
     addressbook_path = os.path.join(user_dir, filename)
     notebook_path = os.path.join(user_dir, notes_filename)
     try:
         with open(addressbook_path, "wb") as f:
-            pickle.dump(book, f)
+            pickle.dump(address_book, f)
         with open(notebook_path, "wb") as f:
-            pickle.dump(notes, f)
-        print("Data saved.")
+            pickle.dump(note_book, f)
+        print("Дані збережено.")
     except Exception as e:
-        print(f"Error saving data: {e}")
+        print(f"Помилка при збереженні даних: {e}")
 
 def load_data(filename="addressbook.pkl", notes_filename="notebook.pkl"):
     user_dir = os.path.expanduser("~")
@@ -335,7 +335,7 @@ def load_data(filename="addressbook.pkl", notes_filename="notebook.pkl"):
     except FileNotFoundError:
         pass
     except Exception as e:
-        print(f"Error loading address book: {e}")
+        print(f"Помилка при завантаженні адресної книги: {e}")
 
     try:
         with open(notebook_path, "rb") as f:
@@ -343,7 +343,7 @@ def load_data(filename="addressbook.pkl", notes_filename="notebook.pkl"):
     except FileNotFoundError:
         pass
     except Exception as e:
-        print(f"Error loading notebook: {e}")
+        print(f"Помилка при завантаженні нотаток: {e}")
     return book, notes
 
 
